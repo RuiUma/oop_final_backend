@@ -1,0 +1,14 @@
+/tomcat.8082/
+/target/
+
+*.log
+*.jar
+*.war
+
+nbproject/
+.idea/
+*.iml
+
+
+.DS_Store
+Thumbs.db
