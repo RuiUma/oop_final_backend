@@ -18,7 +18,7 @@ import java.sql.Connection;
  * @author mzr_u
  */
 
-@WebFilter(urlPatterns = "/*", filterName = "DBConnctionFilter")
+//@WebFilter(urlPatterns = "/*", filterName = "DBConnctionFilter")
 public class DBConnctionFilter implements Filter  {
     private ConnectionPool connectionPool;
     private static final Logger logger = LogManager.getLogger(DBConnctionFilter.class);

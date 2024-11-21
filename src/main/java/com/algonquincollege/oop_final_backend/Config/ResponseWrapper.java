@@ -7,6 +7,10 @@ package com.algonquincollege.oop_final_backend.Config;
 import com.algonquincollege.oop_final_backend.DTO.ResponseDTO;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import java.io.CharArrayWriter;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -16,12 +20,34 @@ import javax.servlet.http.HttpServletResponseWrapper;
 public class ResponseWrapper extends HttpServletResponseWrapper  {
     
     private ResponseDTO<?> responseDTO;
+    private CharArrayWriter charArrayWriter = new CharArrayWriter(); // 缓存响应内容
+    private PrintWriter writer = new PrintWriter(charArrayWriter);  // 包装响应流
+    private Map<String, String> headers = new HashMap<>();
 
-            
     public ResponseWrapper(HttpServletResponse response) {
         super(response);
     }
-    
+
+    @Override
+    public PrintWriter getWriter() {
+        return writer;
+    }
+
+    public String getCapturedResponse() {
+        writer.flush();
+        return charArrayWriter.toString();
+    }
+
+    @Override
+    public void setHeader(String name, String value) {
+        headers.put(name, value);
+        super.setHeader(name, value);
+    }
+
+    public Map<String, String> getHeaders() {
+        return headers;
+    }
+
     public ResponseDTO<?> getResponseDTO() {
         return responseDTO;
     }
@@ -29,5 +55,9 @@ public class ResponseWrapper extends HttpServletResponseWrapper  {
     public void setResponseDTO(ResponseDTO<?> responseVO) {
         this.responseDTO = responseVO;
     }
-    
+
+
+
+
+
 }
