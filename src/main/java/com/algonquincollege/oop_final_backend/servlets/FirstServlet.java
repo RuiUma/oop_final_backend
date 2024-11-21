@@ -65,4 +65,11 @@ public class FirstServlet extends HttpServlet {
         ResponseWrapper rw = (ResponseWrapper)resp;
         rw.setResponseDTO(responseDTO);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.setHeader("Another-Header", "AnotherValue");
+        resp.getWriter().write("This is a plain response.");
+    }
+
 }

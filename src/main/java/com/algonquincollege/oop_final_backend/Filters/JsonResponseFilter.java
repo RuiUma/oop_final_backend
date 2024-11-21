@@ -10,6 +10,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  * @author mzr_u
  */
-@WebFilter(urlPatterns = "/*", filterName = "JsonResponseFilter")
+//@WebFilter(urlPatterns = "/*", filterName = "JsonResponseFilter")
 public class JsonResponseFilter implements Filter {
     
     private static final Logger logger = LogManager.getLogger(JsonResponseFilter.class);
@@ -44,8 +46,22 @@ public class JsonResponseFilter implements Filter {
                 httpResponse.setContentType("application/json");
                 httpResponse.setCharacterEncoding("UTF-8");
                 httpResponse.getWriter().write(json);
-            }
+        } else {
+            String originalResponse = responseWrapper.getCapturedResponse();
+            writeResponse(httpResponse, responseWrapper.getHeaders(), originalResponse, httpResponse.getContentType());
+        }
         
+    }
+
+
+    private void writeResponse(HttpServletResponse response, Map<String, String> headers, String content, String contentType)
+            throws IOException {
+        response.setContentType(contentType);
+        response.setCharacterEncoding("UTF-8");
+
+        headers.forEach(response::setHeader);
+
+        response.getWriter().write(content);
     }
 
     
