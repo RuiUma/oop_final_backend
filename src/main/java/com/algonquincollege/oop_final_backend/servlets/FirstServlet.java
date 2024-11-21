@@ -6,6 +6,7 @@ package com.algonquincollege.oop_final_backend.servlets;
 
 
 import com.algonquincollege.oop_final_backend.Config.ResponseWrapper;
+import com.algonquincollege.oop_final_backend.DTO.CourseDTO;
 import com.algonquincollege.oop_final_backend.DTO.ResponseDTO;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -52,10 +53,14 @@ public class FirstServlet extends HttpServlet {
         
         
         // logic part.
-        List<String> data = new ArrayList<>();
-        data.add("test string 1");
-        data.add("test string 2");
+        List<CourseDTO> data = new ArrayList<>();
+        data.add(new CourseDTO());
+        data.add(new CourseDTO());
+//        data.add("test string 1");
+//        data.add("test string 2");
         ResponseDTO<List> responseDTO = ResponseDTO.success(data);
+
+
         
         ResponseWrapper rw = (ResponseWrapper)resp;
         rw.setResponseDTO(responseDTO);
