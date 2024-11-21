@@ -5,6 +5,8 @@
 package com.algonquincollege.oop_final_backend.servlets;
 
 
+import com.algonquincollege.oop_final_backend.Config.ResponseWrapper;
+import com.algonquincollege.oop_final_backend.DTO.ResponseDTO;
 import javax.servlet.*;
 import javax.servlet.http.*;
 //import java.sql.*;
@@ -14,6 +16,8 @@ import org.apache.logging.log4j.Logger;import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 
 /**
@@ -27,6 +31,8 @@ public class FirstServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,ServletException {
+        
+        // database part.
         Connection connection = (Connection) req.getAttribute("connection");
 
         try {
@@ -43,6 +49,15 @@ public class FirstServlet extends HttpServlet {
         }
         
         logger.info("log from first servlet");
-        resp.getWriter().println("Hello from @WebServlet!");
+        
+        
+        // logic part.
+        List<String> data = new ArrayList<>();
+        data.add("test string 1");
+        data.add("test string 2");
+        ResponseDTO<List> responseDTO = ResponseDTO.success(data);
+        
+        ResponseWrapper rw = (ResponseWrapper)resp;
+        rw.setResponseDTO(responseDTO);
     }
 }

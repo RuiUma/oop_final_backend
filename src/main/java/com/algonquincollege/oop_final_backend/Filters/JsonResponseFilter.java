@@ -4,12 +4,15 @@
  */
 package com.algonquincollege.oop_final_backend.Filters;
 
+import com.algonquincollege.oop_final_backend.Config.ResponseWrapper;
+import com.algonquincollege.oop_final_backend.DTO.ResponseDTO;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  *
@@ -19,7 +22,7 @@ import org.apache.logging.log4j.Logger;
 public class JsonResponseFilter implements Filter {
     
     private static final Logger logger = LogManager.getLogger(JsonResponseFilter.class);
-
+    private final ObjectMapper objectMapper = new ObjectMapper();
     
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -28,10 +31,21 @@ public class JsonResponseFilter implements Filter {
         logger.info("test from filter");
         
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        httpResponse.setContentType("application/json");
-        httpResponse.setCharacterEncoding("UTF-8");
+        
 
-        chain.doFilter(request, response);
+        ResponseWrapper responseWrapper = new ResponseWrapper(httpResponse); 
+        chain.doFilter(request, responseWrapper);
+        
+        ResponseDTO<?> responseDTO = responseWrapper.getResponseDTO();
+        
+        if (responseDTO != null) {
+                String json = objectMapper.writeValueAsString(responseDTO);
+
+                httpResponse.setContentType("application/json");
+                httpResponse.setCharacterEncoding("UTF-8");
+                httpResponse.getWriter().write(json);
+            }
+        
     }
 
     
