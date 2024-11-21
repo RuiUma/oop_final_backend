@@ -4,6 +4,7 @@
 *.log
 *.jar
 *.war
+nb-configuration.xml
 
 nbproject/
 .idea/
