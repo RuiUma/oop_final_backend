@@ -1,6 +1,5 @@
 package com.algonquincollege.oop_final_backend.Config;
 
-import com.algonquincollege.oop_final_backend.Filters.DBConnctionFilter;
 import com.algonquincollege.oop_final_backend.Filters.JsonResponseFilter;
 import com.algonquincollege.oop_final_backend.Filters.RequestBodyToMapFilter;
 
@@ -19,8 +18,6 @@ public class FilterRegistrationConfig implements ServletContextListener {
         FilterRegistration.Dynamic jsonResponseFilter = servletContext.addFilter("JsonResponseFilter", new JsonResponseFilter());
         jsonResponseFilter.addMappingForUrlPatterns(null, false, "/*");
 
-        FilterRegistration.Dynamic dBConnctionFilter = servletContext.addFilter("DBConnctionFilter", new DBConnctionFilter());
-        dBConnctionFilter.addMappingForUrlPatterns(null, false, "/*");
 
     }
 }

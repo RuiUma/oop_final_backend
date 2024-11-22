@@ -5,6 +5,7 @@
 package com.algonquincollege.oop_final_backend.servlets;
 
 
+import com.algonquincollege.oop_final_backend.Config.ConnectionPool;
 import com.algonquincollege.oop_final_backend.Config.ResponseWrapper;
 import com.algonquincollege.oop_final_backend.DTO.CourseDTO;
 import com.algonquincollege.oop_final_backend.DTO.ResponseDTO;
@@ -17,8 +18,11 @@ import org.apache.logging.log4j.Logger;import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 
 /**
@@ -34,14 +38,20 @@ public class FirstServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,ServletException {
         
         // database part.
-        Connection connection = (Connection) req.getAttribute("connection");
-
+        Connection connection = null;
         try {
-            String sql = "SELECT * FROM Users";
+            connection = ConnectionPool.getInstance().getConnection();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        int rowCount = 0;
+        try {
+            String sql = "SELECT count(*) as total FROM Users";
             PreparedStatement stmt = connection.prepareStatement(sql);
             try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    logger.info(rs.getInt("YEAR"));
+                if (rs.next()) {
+                    rowCount = rs.getInt("total");
                 }
             }
 
@@ -58,10 +68,13 @@ public class FirstServlet extends HttpServlet {
         data.add(new CourseDTO());
 //        data.add("test string 1");
 //        data.add("test string 2");
-        ResponseDTO<List> responseDTO = ResponseDTO.success(data);
+
+        Map map = new HashMap();
+        map.put("listData",data);
+        map.put("total row number", rowCount);
 
 
-        
+        ResponseDTO<Map> responseDTO = ResponseDTO.success(map);
         ResponseWrapper rw = (ResponseWrapper)resp;
         rw.setResponseDTO(responseDTO);
     }

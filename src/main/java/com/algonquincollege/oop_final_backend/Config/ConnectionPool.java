@@ -15,7 +15,7 @@ import java.util.concurrent.BlockingQueue;
  * @author mzr_u
  */
 public class ConnectionPool {
-    private static ConnectionPool instance;
+    private static volatile ConnectionPool instance;
     private final BlockingQueue<Connection> connectionPool;
 
     private ConnectionPool(String dbUrl, String dbUser, String dbPassword, int poolSize) throws SQLException {
@@ -26,9 +26,13 @@ public class ConnectionPool {
         }
     }
 
-    public static synchronized ConnectionPool getInstance(String dbUrl, String dbUser, String dbPassword, int poolSize) throws SQLException {
+    public static ConnectionPool getInstance() throws SQLException {
         if (instance == null) {
-            instance = new ConnectionPool(dbUrl, dbUser, dbPassword, poolSize);
+            synchronized (ConnectionPool.class) {
+                if (instance == null) {
+                    instance = new ConnectionPool(DatabaseConfig.DB_URL, DatabaseConfig.USER, DatabaseConfig.PASSWORD, DatabaseConfig.POOL_SIZE);
+                }
+            }
         }
         return instance;
     }
