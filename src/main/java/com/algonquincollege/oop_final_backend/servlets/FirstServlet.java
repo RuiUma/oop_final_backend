@@ -77,6 +77,11 @@ public class FirstServlet extends HttpServlet {
         ResponseDTO<Map> responseDTO = ResponseDTO.success(map);
         ResponseWrapper rw = (ResponseWrapper)resp;
         rw.setResponseDTO(responseDTO);
+        try {
+            ConnectionPool.getInstance().releaseConnection(connection);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
