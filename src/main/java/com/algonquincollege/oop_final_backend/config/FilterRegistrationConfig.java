@@ -1,7 +1,7 @@
-package com.algonquincollege.oop_final_backend.Config;
+package com.algonquincollege.oop_final_backend.config;
 
-import com.algonquincollege.oop_final_backend.Filters.JsonResponseFilter;
-import com.algonquincollege.oop_final_backend.Filters.RequestBodyToMapFilter;
+import com.algonquincollege.oop_final_backend.filters.JsonResponseFilter;
+import com.algonquincollege.oop_final_backend.filters.RequestBodyToMapFilter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebListener;

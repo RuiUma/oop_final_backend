@@ -1,15 +1,11 @@
-package com.algonquincollege.oop_final_backend.Filters;
+package com.algonquincollege.oop_final_backend.filters;
 
 import javax.servlet.Filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.Map;
 import java.util.stream.Collectors;
 

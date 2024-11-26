@@ -2,12 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.algonquincollege.oop_final_backend.Filters;
+package com.algonquincollege.oop_final_backend.filters;
 
-import com.algonquincollege.oop_final_backend.Config.ResponseWrapper;
-import com.algonquincollege.oop_final_backend.DTO.ResponseDTO;
+import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
+import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;

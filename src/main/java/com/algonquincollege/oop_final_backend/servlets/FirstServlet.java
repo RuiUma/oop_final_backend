@@ -5,11 +5,11 @@
 package com.algonquincollege.oop_final_backend.servlets;
 
 
-import com.algonquincollege.oop_final_backend.Config.ConnectionPool;
-import com.algonquincollege.oop_final_backend.Config.ResponseWrapper;
-import com.algonquincollege.oop_final_backend.DTO.CourseDTO;
-import com.algonquincollege.oop_final_backend.DTO.ResponseDTO;
-import javax.servlet.*;
+import com.algonquincollege.oop_final_backend.config.ConnectionPool;
+import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
+import com.algonquincollege.oop_final_backend.dto.CourseDTO;
+import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
+
 import javax.servlet.http.*;
 //import java.sql.*;
 import javax.servlet.annotation.WebServlet;
