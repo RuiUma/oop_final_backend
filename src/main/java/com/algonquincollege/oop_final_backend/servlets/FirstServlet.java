@@ -13,6 +13,10 @@ import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
 import javax.servlet.http.*;
 //import java.sql.*;
 import javax.servlet.annotation.WebServlet;
+
+import com.algonquincollege.oop_final_backend.dto.UserDTO;
+import com.algonquincollege.oop_final_backend.service.AuthService;
+import com.algonquincollege.oop_final_backend.service.impl.AuthServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;import java.io.IOException;
 import java.sql.Connection;
@@ -33,7 +37,9 @@ import javax.servlet.ServletException;
 @WebServlet("/hello")
 public class FirstServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(FirstServlet.class);
-    
+    private AuthService authService = new AuthServiceImpl();
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,ServletException {
         
@@ -86,8 +92,18 @@ public class FirstServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setHeader("Another-Header", "AnotherValue");
-        resp.getWriter().write("This is a plain response.");
+        Map parsedBody = (Map) req.getAttribute("parsedBody");
+        UserDTO userDTO = new UserDTO();
+        userDTO.setPassword(parsedBody.get("password").toString());
+        userDTO.setEmail(parsedBody.get("email").toString());
+
+        logger.info(userDTO);
+        String jwt = authService.login(userDTO);
+
+        logger.info(jwt);
+
+        resp.setHeader("jwt", jwt);
+        resp.getWriter().write(jwt);
     }
 
 }

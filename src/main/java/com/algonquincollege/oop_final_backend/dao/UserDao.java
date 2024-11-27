@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface UserDao {
     UserDTO getUserByEmail(String email);
-    List<UserDTO> searchUser(UserDTO userDTO);
     Boolean insertUser(UserDTO userDTO);
     Boolean modifyUser(UserDTO userDTO);
 }

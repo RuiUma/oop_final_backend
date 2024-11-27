@@ -28,9 +28,7 @@ public class JsonResponseFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        
-        logger.info("test from filter");
-        
+
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         
 
@@ -38,6 +36,7 @@ public class JsonResponseFilter implements Filter {
         chain.doFilter(request, responseWrapper);
         
         ResponseDTO<?> responseDTO = responseWrapper.getResponseDTO();
+        httpResponse.setStatus(200);
         
         if (responseDTO != null) {
                 String json = objectMapper.writeValueAsString(responseDTO);

@@ -1,7 +1,11 @@
 package com.algonquincollege.oop_final_backend.filters;
 
 import javax.servlet.Filter;
+
+import com.algonquincollege.oop_final_backend.servlets.FirstServlet;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +16,8 @@ import java.util.stream.Collectors;
 
 //@WebFilter(urlPatterns = "/*", filterName = "RequestBodyToMapFilter")
 public class RequestBodyToMapFilter implements Filter {
+    private static final Logger logger = LogManager.getLogger(RequestBodyToMapFilter.class);
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -25,9 +31,12 @@ public class RequestBodyToMapFilter implements Filter {
 
             if (body == null || body.isEmpty()) {
                 request.setAttribute("parsedBody", null);
+                logger.info("Request Body: null");
+
             }else {
                 Map bodyMap = objectMapper.readValue(body, Map.class);
                 request.setAttribute("parsedBody", bodyMap);
+                logger.info("Request Body: " + bodyMap);
             }
 
 
