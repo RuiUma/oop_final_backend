@@ -43,6 +43,7 @@ public class JsonResponseFilter implements Filter {
 
                 httpResponse.setContentType("application/json");
                 httpResponse.setCharacterEncoding("UTF-8");
+                responseWrapper.getHeaders().forEach(httpResponse::setHeader);
                 httpResponse.getWriter().write(json);
         } else {
             String originalResponse = responseWrapper.getCapturedResponse();
