@@ -34,9 +34,6 @@ public class LoginServlet extends HttpServlet {
         Map map = new HashMap();
         ResponseWrapper rw = (ResponseWrapper)resp;
 
-
-
-
         if (jwt != null) {
             resp.setHeader("Set-Cookie", "jwt=" + jwt + "; Path=/; SameSite=Strict;");
             map.put("jwt", jwt);

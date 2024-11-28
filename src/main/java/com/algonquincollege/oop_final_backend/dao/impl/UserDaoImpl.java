@@ -52,7 +52,28 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Boolean insertUser(UserDTO userDTO) {
-        return null;
+        try {
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            String sql = "INSERT INTO Users (UserType, Name, Email, Password)" +
+                    " VALUES ( ?, ?, ?, ?);";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1,userDTO.getUserType());
+            stmt.setString(2,userDTO.getName());
+            stmt.setString(3,userDTO.getEmail());
+            stmt.setString(4,userDTO.getPassword());
+
+
+            int res = stmt.executeUpdate();
+            ConnectionPool.getInstance().releaseConnection(connection);
+
+            if (res > 0) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return false;
     }
 
     @Override

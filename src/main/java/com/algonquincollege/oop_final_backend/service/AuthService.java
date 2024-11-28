@@ -14,9 +14,7 @@ public interface AuthService {
         return BCrypt.checkpw(password, bcryptPassword);
     }
 
-    Boolean addProfessional(UserDTO userDTO);
-
-    Boolean addInstitution(UserDTO userDTO);
+    Boolean register(UserDTO userDTO);
 
 
 

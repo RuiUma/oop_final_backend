@@ -1,5 +1,6 @@
 package com.algonquincollege.oop_final_backend.service.impl;
 
+import com.algonquincollege.oop_final_backend.Exception.BusinessException;
 import com.algonquincollege.oop_final_backend.Utils.JwtTool;
 
 import com.algonquincollege.oop_final_backend.dao.UserDao;
@@ -14,14 +15,14 @@ public class AuthServiceImpl implements AuthService {
     private final UserDao userDao = new UserDaoImpl();
 
     @Override
-    public Boolean addProfessional(UserDTO userDTO) {
-        return true;
+    public Boolean register(UserDTO userDTO) {
+        if (isUserExist(userDTO.getEmail())) {
+            throw new BusinessException("Email Already Exists");
+        }
+        userDTO.setPassword(AuthService.bcryptPassword(userDTO.getPassword()));
+        return userDao.insertUser(userDTO);
     }
 
-    @Override
-    public Boolean addInstitution(UserDTO userDTO) {
-        return true;
-    }
 
     @Override
     public String login(UserDTO userDTO) {
@@ -38,4 +39,13 @@ public class AuthServiceImpl implements AuthService {
         }
         return null;
     }
+
+    private Boolean isUserExist(String email) {
+        UserDTO user = userDao.getUserByEmail(email);
+        if (null != user && user.getEmail() != null) {
+            return true;
+        }
+        return false;
+    }
+
 }
