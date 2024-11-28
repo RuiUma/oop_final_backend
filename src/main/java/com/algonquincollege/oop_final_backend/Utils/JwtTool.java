@@ -51,17 +51,17 @@ public class JwtTool {
         return userDTO;
     }
 
-    public static Boolean Validate(String jwt) {
-        try {
-            Jwts.parser()
-                .setSigningKey(SECRET_KEY)
-                .build()
-                .parseClaimsJws(jwt)
-                .getBody();
-
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
+//    public static Boolean Validate(String jwt) {
+//        try {
+//            Jwts.parser()
+//                .setSigningKey(SECRET_KEY)
+//                .build()
+//                .parseClaimsJws(jwt)
+//                .getBody();
+//
+//        } catch (Exception e) {
+//            return false;
+//        }
+//        return true;
+//    }
 }

@@ -33,7 +33,7 @@ public class RequestBodyToMapFilter implements Filter {
                 request.setAttribute("parsedBody", null);
                 logger.info("Request Body: null");
 
-            }else {
+            } else {
                 Map bodyMap = objectMapper.readValue(body, Map.class);
                 request.setAttribute("parsedBody", bodyMap);
                 logger.info("Request Body: " + bodyMap);

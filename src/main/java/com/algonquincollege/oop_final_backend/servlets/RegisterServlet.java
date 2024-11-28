@@ -33,12 +33,12 @@ public class RegisterServlet extends HttpServlet {
         Boolean res = authService.register(userDTO);
         ResponseWrapper rw = (ResponseWrapper)resp;
 
+        ResponseDTO<String> responseDTO;
         if(res) {
-            ResponseDTO<String> responseDTO = ResponseDTO.success("register success");
-            rw.setResponseDTO(responseDTO);
+            responseDTO = ResponseDTO.success("register success");
         } else {
-            ResponseDTO<String> responseDTO = ResponseDTO.success("register failed");
-            rw.setResponseDTO(responseDTO);
+            responseDTO = ResponseDTO.success("register failed");
         }
+        rw.setResponseDTO(responseDTO);
     }
 }
