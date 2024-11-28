@@ -13,6 +13,7 @@ CREATE TABLE Users (
     Name VARCHAR(255) NOT NULL,
     Email VARCHAR(255) UNIQUE NOT NULL,
     Password VARCHAR(255) NOT NULL,
+    ProfileCreated bool default false,
     -- for Professionals only:
     CurrentPosition VARCHAR(255),
     InstitutionID INT,
