@@ -1,11 +1,5 @@
 
 
-CREATE TABLE Institutions (
-    InstitutionID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(255) UNIQUE NOT NULL,
-    Address TEXT
-);
-
 CREATE TABLE Terms (
     TermID INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(50) NOT NULL,
@@ -25,9 +19,7 @@ CREATE TABLE Users (
     EducationBackground TEXT,
     AreaOfExpertise TEXT,
     -- for Institutions only:
-    Address TEXT,
-    FOREIGN KEY (InstitutionID) REFERENCES Institutions(InstitutionID)
-        ON DELETE SET NULL
+    Address TEXT
 );
 
 CREATE TABLE Courses (
@@ -40,11 +32,7 @@ CREATE TABLE Courses (
     DeliveryMethod ENUM('In-Person', 'Remote', 'Hybrid') NOT NULL,
     Outline TEXT,
     PreferredQualifications TEXT,
-    Compensation DECIMAL(10, 2),
-    FOREIGN KEY (InstitutionID) REFERENCES Institutions(InstitutionID)
-        ON DELETE CASCADE,
-    FOREIGN KEY (TermID) REFERENCES Terms(TermID)
-        ON DELETE CASCADE
+    Compensation DECIMAL(10, 2)
 );
 
 
@@ -52,18 +40,14 @@ CREATE TABLE Courses (
 CREATE TABLE Applications (
     ApplicationID INT AUTO_INCREMENT PRIMARY KEY,
     CourseID INT NOT NULL,
+    -- professional user id
     ProfessionalID INT NOT NULL,
     Status ENUM('Pending', 'Accepted', 'Rejected') DEFAULT 'Pending',
     SubmissionDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ReviewDate TIMESTAMP NULL,
+    -- reviewed by userid
     ReviewedBy INT,
-    Reason TEXT,
-    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
-      ON DELETE CASCADE,
-    FOREIGN KEY (ProfessionalID) REFERENCES Users(UserID)
-      ON DELETE CASCADE,
-    FOREIGN KEY (ReviewedBy) REFERENCES Users(UserID)
-      ON DELETE SET NULL
+    Reason TEXT
 );
 
 CREATE TABLE Notifications (
@@ -73,7 +57,5 @@ CREATE TABLE Notifications (
     Message TEXT NOT NULL,
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ReadStatus BOOLEAN DEFAULT FALSE,
-    ExpiresAt TIMESTAMP NULL,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
-        ON DELETE CASCADE
+    ExpiresAt TIMESTAMP NULL
 );
