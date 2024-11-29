@@ -51,5 +51,11 @@ private final CourseService courseService = new CourseService();  // Instantiate
         }
     }
 
-    
+    // Optional: You could handle GET requests if needed, for example, to show a course creation form
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // You can forward the request to a JSP form where the user enters course data
+        request.getRequestDispatcher("Course.jsp").forward(request, response);
+    }
 }
