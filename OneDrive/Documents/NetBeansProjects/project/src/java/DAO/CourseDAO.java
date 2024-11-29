@@ -4,7 +4,7 @@
  */
 package DAO;
 import models.Course;
-
+import java.util.List;
 /**
  *
  * @author baljo
@@ -14,4 +14,5 @@ public interface CourseDAO {
     boolean insertCourse(Course course);
     Course fetchCourseByCode(String code);
     boolean updateCourse(Course course);
+    List<Course> findCourses(String criteria);
 }

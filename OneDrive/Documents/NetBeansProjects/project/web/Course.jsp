@@ -1,16 +1,36 @@
 <%-- 
     Document   : Course
-    Created on : Nov 28, 2024, 1:54:57 p.m.
+    Created on : Nov 28, 2024, 1:54:57?p.m.
     Author     : baljo
 --%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create Course</title>
+    <title>Course Management</title>
+    <style>
+        nav {
+            margin-bottom: 20px;
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+    <nav>
+        <a href="Course.jsp">Course Management</a>
+        <a href="Search.jsp">Search Courses</a>
+        <a href="EditCourse.jsp"> Update Course</a>
+    </nav>
+
     <h1>Create Course</h1>
     <form action="CourseServlet" method="post">
         <label for="title">Course Title:</label><br>

@@ -5,6 +5,8 @@
 package DAO;
 import models.Course;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author baljo
@@ -67,5 +69,32 @@ public class CourseDAOimplement implements CourseDAO {
             return false;
         }
     }
+    
+    @Override
+    public List<Course> findCourses(String criteria) {
+        List<Course> courses = new ArrayList<>();
+        String query = "SELECT title, code, term FROM courses WHERE title LIKE ? OR term LIKE ?";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, "%" + criteria + "%");
+            preparedStatement.setString(2, "%" + criteria + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Course course = new Course(
+                        resultSet.getString("title"),
+                        resultSet.getString("code"),
+                        resultSet.getString("term")
+                );
+                courses.add(course);
+            }
+        } catch (SQLException e) {
+        }
+
+        return courses;
+    }
 }
+
 
