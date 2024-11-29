@@ -11,7 +11,7 @@ import java.sql.*;
  */
 
 public class CourseDAOimplement implements CourseDAO {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/coursemanagement";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/coursemanagement?zeroDateTimeBehavior=CONVERT_TO_NULL [root on Default schema]";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "Saini@2021";
 
