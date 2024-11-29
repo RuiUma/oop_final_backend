@@ -35,7 +35,7 @@ public class AuthServiceImpl implements AuthService {
         Boolean match = AuthService.verifyPassword(userDTO.getPassword(), user.getPassword());
         if (match) {
             userDTO.setPassword(null);
-            return JwtTool.sign(userDTO);
+            return JwtTool.sign(user);
         }
         return null;
     }

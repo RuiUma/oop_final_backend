@@ -78,6 +78,27 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Boolean modifyUser(UserDTO userDTO) {
-        return null;
+
+        try {
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            String sql = "UPDATE Users SET EducationBackground=?, AreaOfExpertise=?, Address=?, ProfileCreated=1 WHERE email=?;";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1,userDTO.getEducationBackground());
+            stmt.setString(2,userDTO.getAreaOfExpertise());
+            stmt.setString(3,userDTO.getAddress());
+            stmt.setString(4,userDTO.getEmail());
+
+
+            int res = stmt.executeUpdate();
+            ConnectionPool.getInstance().releaseConnection(connection);
+
+            if (res > 0) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return false;
     }
 }

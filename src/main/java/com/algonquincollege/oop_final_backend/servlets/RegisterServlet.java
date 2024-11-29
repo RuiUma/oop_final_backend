@@ -37,7 +37,7 @@ public class RegisterServlet extends HttpServlet {
         if(res) {
             responseDTO = ResponseDTO.success("register success");
         } else {
-            responseDTO = ResponseDTO.success("register failed");
+            responseDTO = ResponseDTO.failure("register failed");
         }
         rw.setResponseDTO(responseDTO);
     }

@@ -1,5 +1,6 @@
 package com.algonquincollege.oop_final_backend.Utils;
 
+import com.algonquincollege.oop_final_backend.Exception.UnAuthorizedException;
 import com.algonquincollege.oop_final_backend.dto.UserDTO;
 import com.algonquincollege.oop_final_backend.service.impl.AuthServiceImpl;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -42,9 +43,17 @@ public class JwtTool {
                 .getBody();
 
         UserDTO userDTO = new UserDTO();
-        userDTO.setName(claims.get("name").toString());
-        userDTO.setEmail(claims.get("email").toString());
-        userDTO.setUserType(claims.get("role").toString());
+        try {
+            userDTO.setName(claims.get("name").toString());
+            userDTO.setEmail(claims.get("email").toString());
+            userDTO.setUserType(claims.get("role").toString());
+        } catch (Exception e) {
+
+        }
+        if (userDTO.getEmail() == null) {
+            throw new UnAuthorizedException("Not Valid Token");
+        }
+
 
 
 
