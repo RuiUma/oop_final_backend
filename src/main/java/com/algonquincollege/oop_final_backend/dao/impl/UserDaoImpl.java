@@ -52,6 +52,46 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public UserDTO getUserById(int id) {
+        Connection connection;
+        UserDTO userDTO = new UserDTO();
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            String sql = "SELECT * FROM Users WHERE UserID = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    userDTO.setUserID(rs.getInt("UserID"));
+                    userDTO.setUserType(rs.getString("UserType"));
+                    userDTO.setName(rs.getString("Name"));
+                    userDTO.setEmail(rs.getString("Email"));
+                    userDTO.setPassword(rs.getString("Password"));
+                    userDTO.setProfileCreated(rs.getString("ProfileCreated"));
+                    userDTO.setCurrentPosition(rs.getString("CurrentPosition"));
+                    userDTO.setInstitutionID(rs.getInt("InstitutionID"));
+                    userDTO.setEducationBackground(rs.getString("EducationBackground"));
+                    userDTO.setAreaOfExpertise(rs.getString("AreaOfExpertise"));
+                    userDTO.setAddress(rs.getString("Address"));
+
+                }
+            }
+
+            ConnectionPool.getInstance().releaseConnection(connection);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        if (userDTO.getEmail() != null) {
+            return userDTO;
+        }
+
+        return null;
+    }
+
+    @Override
     public Boolean insertUser(UserDTO userDTO) {
         try {
             Connection connection = ConnectionPool.getInstance().getConnection();

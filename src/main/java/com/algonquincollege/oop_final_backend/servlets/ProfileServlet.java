@@ -46,4 +46,14 @@ public class ProfileServlet extends HttpServlet {
         }
         rw.setResponseDTO(responseDTO);
     }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        Map map = profileService.getProfile(req.getAttribute("userEmail").toString());
+
+
+        ResponseWrapper rw = (ResponseWrapper)resp;
+        rw.setResponseDTO(ResponseDTO.success(map));
+    }
 }

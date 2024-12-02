@@ -8,4 +8,5 @@ public interface UserDao {
     UserDTO getUserByEmail(String email);
     Boolean insertUser(UserDTO userDTO);
     Boolean modifyUser(UserDTO userDTO);
+    UserDTO getUserById(int id);
 }
