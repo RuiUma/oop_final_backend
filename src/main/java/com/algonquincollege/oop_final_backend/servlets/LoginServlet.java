@@ -29,14 +29,14 @@ public class LoginServlet extends HttpServlet {
         userDTO.setPassword(parsedBody.get("password").toString());
         userDTO.setEmail(parsedBody.get("email").toString());
 
-        String jwt = authService.login(userDTO);
+        Map map = authService.login(userDTO);
 
-        Map map = new HashMap();
         ResponseWrapper rw = (ResponseWrapper)resp;
 
-        if (jwt != null) {
+        if (map != null) {
+            String jwt = map.get("jwt").toString();
+
             resp.setHeader("Set-Cookie", "jwt=" + jwt + "; Path=/; SameSite=Strict;");
-            map.put("jwt", jwt);
 
             ResponseDTO<Map> responseDTO = ResponseDTO.success(map);
             rw.setResponseDTO(responseDTO);

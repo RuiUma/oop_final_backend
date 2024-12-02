@@ -10,6 +10,9 @@ import com.algonquincollege.oop_final_backend.service.AuthService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AuthServiceImpl implements AuthService {
     private static final Logger logger = LogManager.getLogger(AuthServiceImpl.class);
     private final UserDao userDao = new UserDaoImpl();
@@ -25,8 +28,9 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public String login(UserDTO userDTO) {
+    public Map login(UserDTO userDTO) {
         logger.info(userDTO);
+        Map map = new HashMap();
 
         UserDTO user = userDao.getUserByEmail(userDTO.getEmail());
         if (user == null) {
@@ -35,7 +39,11 @@ public class AuthServiceImpl implements AuthService {
         Boolean match = AuthService.verifyPassword(userDTO.getPassword(), user.getPassword());
         if (match) {
             userDTO.setPassword(null);
-            return JwtTool.sign(user);
+            map.put("jwt", JwtTool.sign(user));
+            map.put("userName", user.getName());
+            map.put("userType", user.getUserType());
+            map.put("profileCreated", user.getProfileCreated());
+            return map;
         }
         return null;
     }

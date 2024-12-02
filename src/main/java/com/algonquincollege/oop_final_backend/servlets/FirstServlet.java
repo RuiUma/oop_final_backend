@@ -97,13 +97,7 @@ public class FirstServlet extends HttpServlet {
         userDTO.setPassword(parsedBody.get("password").toString());
         userDTO.setEmail(parsedBody.get("email").toString());
 
-        logger.info(userDTO);
-        String jwt = authService.login(userDTO);
 
-        logger.info(jwt);
-
-        resp.setHeader("jwt", jwt);
-        resp.getWriter().write(jwt);
     }
 
 }

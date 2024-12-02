@@ -6,11 +6,20 @@ public class UserDTO {
     private String email;
     private String name;
     private String password;
+    private String profileCreated;
     private String currentPosition;
     private Integer institutionID;
     private String educationBackground;
     private String areaOfExpertise;
     private String address;
+
+    public String getProfileCreated() {
+        return profileCreated;
+    }
+
+    public void setProfileCreated(String profileCreated) {
+        this.profileCreated = profileCreated;
+    }
 
     public Integer getUserID() {
         return userID;
@@ -92,6 +101,7 @@ public class UserDTO {
         this.address = address;
     }
 
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -100,6 +110,7 @@ public class UserDTO {
                 ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", profileCreated='" + profileCreated + '\'' +
                 ", currentPosition='" + currentPosition + '\'' +
                 ", institutionID=" + institutionID +
                 ", educationBackground='" + educationBackground + '\'' +

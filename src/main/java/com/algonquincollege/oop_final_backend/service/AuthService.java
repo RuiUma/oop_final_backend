@@ -5,6 +5,8 @@ package com.algonquincollege.oop_final_backend.service;
 import com.algonquincollege.oop_final_backend.dto.UserDTO;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.Map;
+
 public interface AuthService {
     public static String bcryptPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
@@ -19,6 +21,6 @@ public interface AuthService {
 
 
 
-    String login(UserDTO userDTO);
+    Map login(UserDTO userDTO);
 
 }
