@@ -15,4 +15,10 @@ public class NotificationServiceImpl implements NotificationService {
     public List<NotificationDTO> getNotificationsByUserId(int userId) {
         return notificationDao.getNotificationsByUserId(userId);
     }
+
+    @Override
+    public Boolean markAsRead(int notificationId) {
+
+        return null;
+    }
 }

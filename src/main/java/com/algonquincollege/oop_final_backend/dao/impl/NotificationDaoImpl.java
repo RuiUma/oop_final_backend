@@ -43,4 +43,27 @@ public class NotificationDaoImpl implements NotificationDao {
         }
         return resList;
     }
+
+    @Override
+    public Boolean markAsRead(int notificationId) {
+        try {
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            String sql = """
+                    UPDATE Notifications set ReadStatus = false where NotificationID = ?
+                """;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, notificationId);
+
+            int res = stmt.executeUpdate();
+            ConnectionPool.getInstance().releaseConnection(connection);
+
+            if (res > 0) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
 }

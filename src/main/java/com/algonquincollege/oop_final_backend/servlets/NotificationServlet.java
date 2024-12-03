@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 @WebServlet("/notification")
 public class NotificationServlet extends HttpServlet {
@@ -24,6 +25,10 @@ public class NotificationServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Map parsedBody = (Map) req.getAttribute("parsedBody");
+        String notificationId = parsedBody.get("notificationId").toString();
+        ResponseWrapper rw = (ResponseWrapper)resp;
+        rw.setResponseDTO(ResponseDTO.success(notificationService.markAsRead(Integer.parseInt(notificationId))));
 
     }
 }

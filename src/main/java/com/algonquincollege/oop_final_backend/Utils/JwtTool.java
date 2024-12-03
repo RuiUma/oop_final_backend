@@ -29,7 +29,7 @@ public class JwtTool {
         return Jwts.builder()
                 .setSubject(userDTO.getEmail())
                 .setIssuer("algonquincollege.com")
-                .setExpiration(new Date(System.currentTimeMillis() + 7200000))
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000))
                 .addClaims(claims)
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();

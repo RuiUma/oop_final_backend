@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/getCourseDetail")
+@WebServlet("/courseDetail")
 public class CourseDetailServlet extends HttpServlet {
     CourseService courseService = new CourseServiceImpl();
     ProfessionalService professionalService = new ProfessionalServiceImpl();
