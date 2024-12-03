@@ -24,6 +24,7 @@ public class JwtTool {
         claims.put("name", userDTO.getName());
         claims.put("email", userDTO.getEmail());
         claims.put("role", userDTO.getUserType());
+        claims.put("userId",userDTO.getUserID());
 
         return Jwts.builder()
                 .setSubject(userDTO.getEmail())
@@ -47,6 +48,7 @@ public class JwtTool {
             userDTO.setName(claims.get("name").toString());
             userDTO.setEmail(claims.get("email").toString());
             userDTO.setUserType(claims.get("role").toString());
+            userDTO.setUserID(Integer.valueOf(claims.get("userId").toString()));
         } catch (Exception e) {
 
         }

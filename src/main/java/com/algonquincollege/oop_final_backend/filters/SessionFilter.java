@@ -50,6 +50,7 @@ public class SessionFilter implements Filter {
         request.setAttribute("userName", user.getName());
         request.setAttribute("userEmail", user.getEmail());
         request.setAttribute("userType", user.getUserType());
+        request.setAttribute("userId", user.getUserID());
 
         chain.doFilter(request, response);
 
@@ -58,7 +59,7 @@ public class SessionFilter implements Filter {
 
     private Boolean matchUrl(String url) {
         String cleanedURL = cleanURL(url);
-        List<String> patterns = List.of("/login", "/register");
+        List<String> patterns = List.of("/login", "/register", "/getGeneralData");
 
         return patterns.stream().anyMatch(pattern -> Pattern.matches(pattern, cleanedURL));
     }
