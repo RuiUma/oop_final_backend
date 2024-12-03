@@ -4,4 +4,6 @@ import java.util.Map;
 
 public interface ProfessionalService {
     Map getDashBoard(Map map);
+
+    String getApplicationStatus(int courseId, int userId);
 }

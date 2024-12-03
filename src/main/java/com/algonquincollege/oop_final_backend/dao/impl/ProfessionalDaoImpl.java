@@ -24,7 +24,8 @@ public class ProfessionalDaoImpl implements ProfessionalDao {
             String sql = """
                     select a.ApplicationID, a.Status, c.Title from Applications a
                     left join Courses c on a.CourseID = c.CourseID
-                    where a.ProfessionalID = ?;""";
+                    where a.ProfessionalID = ?;
+                """;
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, id);
 
@@ -103,4 +104,32 @@ public class ProfessionalDaoImpl implements ProfessionalDao {
 
         return list;
     }
+
+    @Override
+    public String getApplicationStatus(int courseId, int userId) {
+
+        String res = "";
+        try {
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            String sql = """
+                    select Status from Applications where CourseID = ? and ProfessionalID = ?;
+            """;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, courseId);
+            stmt.setInt(2, userId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()) {
+                    res = rs.getString("Status");
+                }
+            }
+            ConnectionPool.getInstance().releaseConnection(connection);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return res;
+    }
 }
+

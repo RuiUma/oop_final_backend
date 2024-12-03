@@ -23,4 +23,10 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         resMap.put("courses", professionalDao.searchCourseByFilters(vo));
         return resMap;
     }
+
+    @Override
+    public String getApplicationStatus(int courseId, int userId) {
+
+        return "";
+    }
 }

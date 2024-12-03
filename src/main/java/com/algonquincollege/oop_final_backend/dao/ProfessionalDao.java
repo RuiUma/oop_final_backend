@@ -9,5 +9,5 @@ import java.util.List;
 public interface ProfessionalDao {
     List<ProfessionalApplicationVo> getApplicationsByUserId(int id);
     List<CourseVo> searchCourseByFilters(CourseFilterVo vo);
-
+    String getApplicationStatus(int courseId, int userId);
 }
