@@ -128,7 +128,11 @@ public class UserDaoImpl implements UserDao {
             stmt.setString(1,userDTO.getEducationBackground());
             stmt.setString(2,userDTO.getAreaOfExpertise());
             stmt.setString(3,userDTO.getAddress());
-            stmt.setInt(4,userDTO.getInstitutionID());
+            if (userDTO.getInstitutionID() == null) {
+                stmt.setNull(4, java.sql.Types.INTEGER);
+            } else {
+                stmt.setInt(4, userDTO.getInstitutionID());
+            }
             stmt.setString(5, userDTO.getCurrentPosition());
             stmt.setString(6,userDTO.getEmail());
 

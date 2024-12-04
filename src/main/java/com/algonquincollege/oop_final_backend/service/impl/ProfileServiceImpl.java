@@ -25,6 +25,7 @@ public class ProfileServiceImpl implements ProfileService {
         map.put("areaOfExpertise",userDTO.getAreaOfExpertise());
         map.put("educationBackground",userDTO.getEducationBackground());
         map.put("currentPosition",userDTO.getCurrentPosition());
+        map.put("address", userDTO.getAddress());
 
         if (userDTO.getUserID() == null) {
             map.put("institutionId", "No Institution Name");
