@@ -27,13 +27,13 @@ public class ProfileServiceImpl implements ProfileService {
         map.put("currentPosition",userDTO.getCurrentPosition());
 
         if (userDTO.getUserID() == null) {
-            map.put("institutionName", "No Institution Name");
+            map.put("institutionId", "No Institution Name");
         } else {
             UserDTO institutionUser = userDao.getUserById(userDTO.getInstitutionID());
             if (institutionUser == null) {
-                map.put("institutionName", "No Institution Name");
+                map.put("institutionId", "No Institution Name");
             } else {
-                map.put("institutionName", institutionUser.getName());
+                map.put("institutionId", institutionUser.getName());
             }
 
         }

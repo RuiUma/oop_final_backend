@@ -122,12 +122,15 @@ public class UserDaoImpl implements UserDao {
 
         try {
             Connection connection = ConnectionPool.getInstance().getConnection();
-            String sql = "UPDATE Users SET EducationBackground=?, AreaOfExpertise=?, Address=?, ProfileCreated=1 WHERE email=?;";
+            String sql = "UPDATE Users SET  EducationBackground=?, AreaOfExpertise=?, Address=?, InstitutionID=?, CurrentPosition=?, ProfileCreated=1 WHERE email=?;";
             PreparedStatement stmt = connection.prepareStatement(sql);
+
             stmt.setString(1,userDTO.getEducationBackground());
             stmt.setString(2,userDTO.getAreaOfExpertise());
             stmt.setString(3,userDTO.getAddress());
-            stmt.setString(4,userDTO.getEmail());
+            stmt.setInt(4,userDTO.getInstitutionID());
+            stmt.setString(5, userDTO.getCurrentPosition());
+            stmt.setString(6,userDTO.getEmail());
 
 
             int res = stmt.executeUpdate();

@@ -30,9 +30,20 @@ public class ProfileServlet extends HttpServlet {
 
 
         // get data from the request body
-        userDTO.setEducationBackground(parsedBody.get("educationBackground").toString());
-        userDTO.setAreaOfExpertise(parsedBody.get("areaOfExpertise").toString());
-        userDTO.setAddress(parsedBody.get("address").toString());
+        userDTO.setEducationBackground(getOrNull(parsedBody, "educationBackground"));
+        userDTO.setAreaOfExpertise(getOrNull(parsedBody, "areaOfExpertise"));
+        userDTO.setAddress(getOrNull(parsedBody, "address"));
+        userDTO.setCurrentPosition(getOrNull(parsedBody, "currentPosition"));
+
+
+        String institutionStr = parsedBody.getOrDefault("institution", "").toString();
+        try {
+            Integer institutionID = institutionStr.isEmpty() ? null : Integer.parseInt(institutionStr);
+            userDTO.setInstitutionID(institutionID);
+        } catch (NumberFormatException e) {
+            // Handle invalid number format (e.g., log an error or set a default value)
+            userDTO.setInstitutionID(null); // or a default value like 0
+        }
 
         Boolean res = profileService.save(userDTO);
 
@@ -56,4 +67,14 @@ public class ProfileServlet extends HttpServlet {
         ResponseWrapper rw = (ResponseWrapper)resp;
         rw.setResponseDTO(ResponseDTO.success(map));
     }
+
+    private String getOrNull(Map<String, Object> map, String key) {
+        Object value = map.get(key);
+        if (value instanceof String) {
+            String stringValue = (String) value;
+            return stringValue.isEmpty() ? null : stringValue;
+        }
+        return null;
+    }
+
 }
