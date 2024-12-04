@@ -3,9 +3,9 @@ package com.algonquincollege.oop_final_backend.dto;
 import java.io.Serializable;
 
 public class CourseDTO implements Serializable {
-    private Integer courseID;
-    private Integer institutionID;
-    private Integer termID;
+    private Integer courseId;
+    private Integer institutionId;
+    private Integer termId;
     private String title;
     private String code;
     private String schedule;
@@ -14,28 +14,28 @@ public class CourseDTO implements Serializable {
     private String preferredQualifications;
     private Double compensation;
 
-    public Integer getCourseID() {
-        return courseID;
+    public Integer getCourseId() {
+        return courseId;
     }
 
-    public void setCourseID(Integer courseID) {
-        this.courseID = courseID;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 
-    public Integer getInstitutionID() {
-        return institutionID;
+    public Integer getInstitutionId() {
+        return institutionId;
     }
 
-    public void setInstitutionID(Integer institutionID) {
-        this.institutionID = institutionID;
+    public void setInstitutionId(Integer institutionId) {
+        this.institutionId = institutionId;
     }
 
-    public Integer getTermID() {
-        return termID;
+    public Integer getTermId() {
+        return termId;
     }
 
-    public void setTermID(Integer termID) {
-        this.termID = termID;
+    public void setTermId(Integer termId) {
+        this.termId = termId;
     }
 
     public String getTitle() {
@@ -97,9 +97,9 @@ public class CourseDTO implements Serializable {
     @Override
     public String toString() {
         return "CourseDTO{" +
-                "courseID=" + courseID +
-                ", institutionID=" + institutionID +
-                ", termID=" + termID +
+                "courseID=" + courseId +
+                ", institutionID=" + institutionId +
+                ", termID=" + termId +
                 ", title='" + title + '\'' +
                 ", code='" + code + '\'' +
                 ", schedule='" + schedule + '\'' +

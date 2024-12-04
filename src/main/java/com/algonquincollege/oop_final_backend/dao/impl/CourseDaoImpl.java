@@ -2,17 +2,15 @@ package com.algonquincollege.oop_final_backend.dao.impl;
 
 import com.algonquincollege.oop_final_backend.config.ConnectionPool;
 import com.algonquincollege.oop_final_backend.dao.CourseDao;
+import com.algonquincollege.oop_final_backend.dto.CourseDTO;
 import com.algonquincollege.oop_final_backend.vo.CourseDetailVo;
 import com.algonquincollege.oop_final_backend.vo.CourseVo;
-import com.algonquincollege.oop_final_backend.vo.SelectOption;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CourseDaoImpl implements CourseDao {
 
@@ -76,5 +74,103 @@ public class CourseDaoImpl implements CourseDao {
             throw new RuntimeException(e);
         }
         return vo;
+    }
+
+    @Override
+    public Boolean createCourse(CourseDTO courseDTO) {
+        try {
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            String sql = """
+                INSERT INTO Courses (InstitutionID, TermID, Title, Code, Schedule, DeliveryMethod, Outline, PreferredQualifications, Compensation)
+                     VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                """;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, courseDTO.getInstitutionId());
+            stmt.setInt(2, courseDTO.getTermId());
+            stmt.setString(3, courseDTO.getTitle());
+            stmt.setString(4, courseDTO.getCode());
+            stmt.setString(5, courseDTO.getSchedule());
+            stmt.setString(6, courseDTO.getDeliveryMethod());
+            stmt.setString(7, courseDTO.getOutline());
+            stmt.setString(8, courseDTO.getPreferredQualifications());
+            stmt.setDouble(9, courseDTO.getCompensation());
+
+
+            int res = stmt.executeUpdate();
+            ConnectionPool.getInstance().releaseConnection(connection);
+
+            if (res > 0) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean modifyCourse(CourseDTO courseDTO) {
+        try {
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            String sql = """
+                UPDATE Courses SET InstitutionID=?, TermID=?, Title=?, Code=?, Schedule=?,
+                DeliveryMethod = ?, Outline = ?, PreferredQualifications = ?, Compensation = ? where CourseID = ?;
+                """;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, courseDTO.getInstitutionId());
+            stmt.setInt(2, courseDTO.getTermId());
+            stmt.setString(3, courseDTO.getTitle());
+            stmt.setString(4, courseDTO.getCode());
+            stmt.setString(5, courseDTO.getSchedule());
+            stmt.setString(6, courseDTO.getDeliveryMethod());
+            stmt.setString(7, courseDTO.getOutline());
+            stmt.setString(8, courseDTO.getPreferredQualifications());
+            stmt.setDouble(9, courseDTO.getCompensation());
+            stmt.setInt(10, courseDTO.getCourseId());
+
+
+            int res = stmt.executeUpdate();
+            ConnectionPool.getInstance().releaseConnection(connection);
+
+            if (res > 0) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    @Override
+    public CourseDTO getInstitutionCourseDetail(int courseId){
+        CourseDTO courseDTO = new CourseDTO();
+        try {
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            String sql = """
+                select * from Courses where CourseID = ?
+            """;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, courseId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    courseDTO.setTitle(rs.getString("Title"));
+                    courseDTO.setCode(rs.getString("Code"));
+                    courseDTO.setTermId(rs.getInt("TermID"));
+                    courseDTO.setSchedule(rs.getString("Schedule"));
+                    courseDTO.setDeliveryMethod(rs.getString("DeliveryMethod"));
+                    courseDTO.setCompensation(rs.getDouble("Compensation"));
+                    courseDTO.setPreferredQualifications(rs.getString("PreferredQualifications"));
+                    courseDTO.setOutline(rs.getString("Outline"));
+                }
+            }
+            ConnectionPool.getInstance().releaseConnection(connection);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return courseDTO;
     }
 }
