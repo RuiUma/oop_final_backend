@@ -29,6 +29,10 @@ public class SessionFilter implements Filter {
         }
         logger.info("not matched url");
         Cookie[] cookies = httpServletRequest.getCookies();
+
+        if(cookies == null) {
+            throw new UnAuthorizedException("Not Logged In.");
+        }
         String jwt = null;
         for (Cookie cookie: cookies) {
             if ("jwt".equals(cookie.getName())){
