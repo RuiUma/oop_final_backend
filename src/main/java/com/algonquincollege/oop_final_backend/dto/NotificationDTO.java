@@ -11,6 +11,28 @@ public class NotificationDTO {
     private Boolean readStatus;
     private LocalDateTime expiresAt;
 
+    public static class Builder {
+        private Integer userID;
+        private String message;
+
+        public Builder setUserID(Integer userID) {
+            this.userID = userID;
+            return this;
+        }
+
+        public Builder setMessage(String message) {
+            this.message = message;
+            return this;
+        }
+
+        public NotificationDTO build() {
+            NotificationDTO notificationDTO = new NotificationDTO();
+            notificationDTO.setUserID(userID);
+            notificationDTO.setMessage(message);
+            return notificationDTO;
+        }
+    }
+
     public Integer getNotificationID() {
         return notificationID;
     }

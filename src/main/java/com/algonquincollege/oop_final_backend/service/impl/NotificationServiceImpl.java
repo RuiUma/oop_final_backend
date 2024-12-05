@@ -18,7 +18,11 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public Boolean markAsRead(int notificationId) {
+        return notificationDao.markAsRead(notificationId);
+    }
 
-        return null;
+    @Override
+    public Boolean createNotification(NotificationDTO notificationDTO) {
+        return notificationDao.createNotification(notificationDTO);
     }
 }

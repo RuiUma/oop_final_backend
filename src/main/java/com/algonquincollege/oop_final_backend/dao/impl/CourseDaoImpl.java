@@ -15,6 +15,30 @@ import java.util.List;
 public class CourseDaoImpl implements CourseDao {
 
     @Override
+    public int getInstitutionByCourseId(int courseId) {
+        int res = 0;
+        try {
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            String sql = """
+                select InstitutionID from Courses where CourseID = ?;
+            """;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, courseId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    res = rs.getInt("InstitutionID");
+                }
+            }
+            ConnectionPool.getInstance().releaseConnection(connection);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+
+    @Override
     public List<CourseVo> getAllCourseByUserId(int userId) {
         List<CourseVo> list = new ArrayList<>();
         try {

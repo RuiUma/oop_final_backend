@@ -7,5 +7,5 @@ import java.util.List;
 public interface NotificationService {
     List<NotificationDTO> getNotificationsByUserId(int userId);
     Boolean markAsRead(int notificationId);
-//    Boolean createNotification()
+    Boolean createNotification(NotificationDTO notificationDTO);
 }

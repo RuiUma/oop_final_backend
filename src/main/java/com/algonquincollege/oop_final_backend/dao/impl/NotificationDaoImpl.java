@@ -19,7 +19,7 @@ public class NotificationDaoImpl implements NotificationDao {
 
         try {
             Connection connection = ConnectionPool.getInstance().getConnection();
-            String sql = "SELECT * FROM Notifications WHERE UserID = ?";
+            String sql = "SELECT * FROM Notifications WHERE UserID = ? AND ReadStatus = 0";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, userId);
 
@@ -49,7 +49,7 @@ public class NotificationDaoImpl implements NotificationDao {
         try {
             Connection connection = ConnectionPool.getInstance().getConnection();
             String sql = """
-                    UPDATE Notifications set ReadStatus = false where NotificationID = ?
+                    UPDATE Notifications set ReadStatus = true where NotificationID = ?
                 """;
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, notificationId);
@@ -65,5 +65,10 @@ public class NotificationDaoImpl implements NotificationDao {
             throw new RuntimeException(e);
         }
         return false;
+    }
+
+    @Override
+    public Boolean createNotification(NotificationDTO notificationDTO) {
+        return null;
     }
 }

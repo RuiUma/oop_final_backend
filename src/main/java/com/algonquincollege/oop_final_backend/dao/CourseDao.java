@@ -12,4 +12,5 @@ public interface CourseDao {
     Boolean createCourse(CourseDTO courseDTO);
     Boolean modifyCourse(CourseDTO courseDTO);
     CourseDTO getInstitutionCourseDetail(int courseId);
+    int getInstitutionByCourseId(int courseId);
 }
