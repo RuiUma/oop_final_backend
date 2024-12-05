@@ -13,4 +13,5 @@ public interface CourseDao {
     Boolean modifyCourse(CourseDTO courseDTO);
     CourseDTO getInstitutionCourseDetail(int courseId);
     int getInstitutionByCourseId(int courseId);
+    String getCourseTitleByCourseId(int courseId);
 }

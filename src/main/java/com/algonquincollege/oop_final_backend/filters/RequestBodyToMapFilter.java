@@ -4,6 +4,7 @@ import javax.servlet.Filter;
 
 import com.algonquincollege.oop_final_backend.servlets.FirstServlet;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,6 +20,11 @@ public class RequestBodyToMapFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(RequestBodyToMapFilter.class);
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        objectMapper.registerModule(new JavaTimeModule());
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

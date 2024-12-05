@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,7 +25,12 @@ public class JsonResponseFilter implements Filter {
     
     private static final Logger logger = LogManager.getLogger(JsonResponseFilter.class);
     private final ObjectMapper objectMapper = new ObjectMapper();
-    
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        objectMapper.registerModule(new JavaTimeModule());
+    }
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {

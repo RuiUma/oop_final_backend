@@ -10,12 +10,18 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 
 public class LogFilter implements Filter {
 
     private static final Logger logger = LogManager.getLogger(LogFilter.class);
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        objectMapper.registerModule(new JavaTimeModule());
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

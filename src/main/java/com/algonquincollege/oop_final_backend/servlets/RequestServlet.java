@@ -2,6 +2,7 @@ package com.algonquincollege.oop_final_backend.servlets;
 
 import com.algonquincollege.oop_final_backend.Utils.GetUtil;
 import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
+import com.algonquincollege.oop_final_backend.dto.ApplicationDTO;
 import com.algonquincollege.oop_final_backend.dto.CourseDTO;
 import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
 import com.algonquincollege.oop_final_backend.service.RequestService;
@@ -26,7 +27,15 @@ public class RequestServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        Map parsedBody = (Map) req.getAttribute("parsedBody");
+        Integer professionalId = Integer.valueOf(req.getAttribute("userId").toString());
+        Integer courseId = GetUtil.getIntValue(parsedBody, "courseId");
+        ApplicationDTO applicationDTO = new ApplicationDTO();
+        applicationDTO.setCourseID(courseId);
+        applicationDTO.setProfessionalID(professionalId);
+        ResponseWrapper rw = (ResponseWrapper)resp;
+        rw.setResponseDTO(ResponseDTO.success(requestService.createRequest(applicationDTO)));
+
     }
 
     @Override

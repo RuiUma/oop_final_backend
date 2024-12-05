@@ -1,5 +1,6 @@
 package com.algonquincollege.oop_final_backend.dao.impl;
 
+import com.algonquincollege.oop_final_backend.Exception.BusinessException;
 import com.algonquincollege.oop_final_backend.config.ConnectionPool;
 import com.algonquincollege.oop_final_backend.dao.CourseDao;
 import com.algonquincollege.oop_final_backend.dto.CourseDTO;
@@ -15,8 +16,32 @@ import java.util.List;
 public class CourseDaoImpl implements CourseDao {
 
     @Override
+    public String getCourseTitleByCourseId(int courseId) {
+        String res = null;
+        try {
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            String sql = """
+                select Title from Courses where CourseID = ?;
+            """;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, courseId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    res = rs.getString("Title");
+                }
+            }
+            ConnectionPool.getInstance().releaseConnection(connection);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+
+    @Override
     public int getInstitutionByCourseId(int courseId) {
-        int res = 0;
+        int res = -1;
         try {
             Connection connection = ConnectionPool.getInstance().getConnection();
             String sql = """
@@ -34,6 +59,9 @@ public class CourseDaoImpl implements CourseDao {
 
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+        if(res == -1) {
+            throw new BusinessException("Course is not linked to an institution");
         }
         return res;
     }

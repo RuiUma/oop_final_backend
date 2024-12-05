@@ -10,9 +10,81 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ApplicationDaoImpl implements ApplicationDao {
+
+    @Override
+    public Map getProfAndInstByAppId(int applicationId) {
+        Map map = new HashMap();
+        try {
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            String sql = """
+                select A.*,
+                   UP.Name as professionalName,
+                   UP.UserID as professionalId,
+                   UI.Name as institutionName,
+                   UI.UserID as institutionId
+                from Applications A
+                join oop_final_database.Courses C on A.CourseID = C.CourseID
+                join oop_final_database.Users UP on A.ProfessionalID = UP.UserID
+                join Users UI on C.InstitutionID = UI.UserID
+                where A.ApplicationID = ?
+            """;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, applicationId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    map.put("professionalName", rs.getString("professionalName"));
+                    map.put("professionalId", rs.getInt("professionalId"));
+                    map.put("institutionName", rs.getString("institutionName"));
+                    map.put("institutionId", rs.getInt("institutionId"));
+                }
+            }
+            ConnectionPool.getInstance().releaseConnection(connection);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return map;
+    }
+
+
+    @Override
+    public Map getApplicationProfessional(int applicationId) {
+        Map map = new HashMap();
+        try {
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            String sql = """
+                SELECT
+                    Applications.ProfessionalID, Users.Name
+                FROM
+                    Applications
+                    JOIN
+                    Users ON Users.UserID = Applications.ProfessionalID
+                WHERE
+                    Applications.ApplicationID = ?;
+            """;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, applicationId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    map.put("professionalId", rs.getString("ProfessionalID"));
+                    map.put("name", rs.getString("Name"));
+                }
+            }
+            ConnectionPool.getInstance().releaseConnection(connection);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return map;
+    }
+
     @Override
     public Boolean createApplication(ApplicationDTO applicationDTO) {
         try {

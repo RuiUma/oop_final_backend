@@ -4,6 +4,7 @@ import com.algonquincollege.oop_final_backend.dto.ApplicationDTO;
 import com.algonquincollege.oop_final_backend.vo.ApplicationVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ApplicationDao {
     Boolean createApplication(ApplicationDTO applicationDTO);
@@ -12,5 +13,7 @@ public interface ApplicationDao {
 
     List<ApplicationVo> getApplicationsByUserId(int userId);
 
+    Map getApplicationProfessional(int applicationId);
+    Map getProfAndInstByAppId(int applicationId);
 
 }
