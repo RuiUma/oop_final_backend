@@ -1,10 +1,10 @@
 package com.algonquincollege.oop_final_backend.config;
 
+import java.sql.SQLException;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-
 import javax.servlet.annotation.WebListener;
-import java.sql.SQLException;
 
 @WebListener
 public class InitConfig implements ServletContextListener {

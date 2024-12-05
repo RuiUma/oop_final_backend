@@ -1,16 +1,23 @@
 package com.algonquincollege.oop_final_backend.filters;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.algonquincollege.oop_final_backend.Exception.UnAuthorizedException;
 import com.algonquincollege.oop_final_backend.Utils.JwtTool;
 import com.algonquincollege.oop_final_backend.dto.UserDTO;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import java.util.regex.Pattern;
-import javax.servlet.*;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.*;
 
 public class SessionFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(SessionFilter.class);

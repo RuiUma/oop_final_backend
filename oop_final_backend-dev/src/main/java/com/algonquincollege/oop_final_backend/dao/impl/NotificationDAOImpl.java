@@ -1,15 +1,15 @@
 package com.algonquincollege.oop_final_backend.dao.impl;
 
-import com.algonquincollege.oop_final_backend.config.ConnectionPool;
-import com.algonquincollege.oop_final_backend.dao.NotificationDAO;
-import com.algonquincollege.oop_final_backend.dto.NotificationDTO;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.algonquincollege.oop_final_backend.config.ConnectionPool;
+import com.algonquincollege.oop_final_backend.dao.NotificationDAO;
+import com.algonquincollege.oop_final_backend.dto.NotificationDTO;
 
 public class NotificationDAOImpl implements NotificationDAO {
     @Override

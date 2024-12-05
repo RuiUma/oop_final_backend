@@ -1,18 +1,19 @@
 package com.algonquincollege.oop_final_backend.servlets;
 
-import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
-import com.algonquincollege.oop_final_backend.dto.UserDTO;
-import com.algonquincollege.oop_final_backend.service.ProfileService;
-import com.algonquincollege.oop_final_backend.service.impl.ProfileServiceImpl;
+import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Map;
+
+import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
+import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
+import com.algonquincollege.oop_final_backend.dto.UserDTO;
+import com.algonquincollege.oop_final_backend.service.ProfileService;
+import com.algonquincollege.oop_final_backend.service.impl.ProfileServiceImpl;
 
 @WebServlet("/profile")
 public class ProfileServlet extends HttpServlet {

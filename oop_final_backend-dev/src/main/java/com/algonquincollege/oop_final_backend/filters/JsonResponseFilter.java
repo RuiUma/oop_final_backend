@@ -4,15 +4,21 @@
  */
 package com.algonquincollege.oop_final_backend.filters;
 
-import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
-import javax.servlet.*;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
+import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -21,23 +27,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 //@WebFilter(urlPatterns = "/*", filterName = "JsonResponseFilter")
 public class JsonResponseFilter implements Filter {
-    
+
     private static final Logger logger = LogManager.getLogger(JsonResponseFilter.class);
     private final ObjectMapper objectMapper = new ObjectMapper();
-    
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        
 
-        ResponseWrapper responseWrapper = new ResponseWrapper(httpResponse); 
+
+        ResponseWrapper responseWrapper = new ResponseWrapper(httpResponse);
         chain.doFilter(request, responseWrapper);
-        
+
         ResponseDTO<?> responseDTO = responseWrapper.getResponseDTO();
         httpResponse.setStatus(200);
-        
+
         if (responseDTO != null) {
                 String json = objectMapper.writeValueAsString(responseDTO);
 
@@ -49,7 +55,7 @@ public class JsonResponseFilter implements Filter {
             String originalResponse = responseWrapper.getCapturedResponse();
             writeResponse(httpResponse, responseWrapper.getHeaders(), originalResponse, httpResponse.getContentType());
         }
-        
+
     }
 
 
@@ -63,5 +69,5 @@ public class JsonResponseFilter implements Filter {
         response.getWriter().write(content);
     }
 
-    
+
 }

@@ -1,13 +1,12 @@
 package com.algonquincollege.oop_final_backend.dao.impl;
 
-import com.algonquincollege.oop_final_backend.config.ConnectionPool;
-import com.algonquincollege.oop_final_backend.dao.UserDao;
-import com.algonquincollege.oop_final_backend.dto.UserDTO;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import com.algonquincollege.oop_final_backend.config.ConnectionPool;
+import com.algonquincollege.oop_final_backend.dao.UserDao;
+import com.algonquincollege.oop_final_backend.dto.UserDTO;
 
 public class UserDaoImpl implements UserDao {
     @Override

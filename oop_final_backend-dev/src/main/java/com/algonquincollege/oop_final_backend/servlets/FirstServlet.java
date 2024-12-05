@@ -5,20 +5,7 @@
 package com.algonquincollege.oop_final_backend.servlets;
 
 
-import com.algonquincollege.oop_final_backend.config.ConnectionPool;
-import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
-import com.algonquincollege.oop_final_backend.dto.CourseDTO;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
-
-import javax.servlet.http.*;
-//import java.sql.*;
-import javax.servlet.annotation.WebServlet;
-
-import com.algonquincollege.oop_final_backend.dto.UserDTO;
-import com.algonquincollege.oop_final_backend.service.AuthService;
-import com.algonquincollege.oop_final_backend.service.impl.AuthServiceImpl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;import java.io.IOException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +14,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.ServletException;
+//import java.sql.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.algonquincollege.oop_final_backend.config.ConnectionPool;
+import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
+import com.algonquincollege.oop_final_backend.dto.CourseDTO;
+import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
+import com.algonquincollege.oop_final_backend.dto.UserDTO;
+import com.algonquincollege.oop_final_backend.service.AuthService;
+import com.algonquincollege.oop_final_backend.service.impl.AuthServiceImpl;
 
 /**
  *
@@ -42,7 +46,7 @@ public class FirstServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,ServletException {
-        
+
         // database part.
         Connection connection = null;
         try {
@@ -64,10 +68,10 @@ public class FirstServlet extends HttpServlet {
         } catch (Exception e) {
             throw new ServletException("Database error", e);
         }
-        
+
         logger.info("log from first servlet");
-        
-        
+
+
         // logic part.
         List<CourseDTO> data = new ArrayList<>();
         data.add(new CourseDTO());

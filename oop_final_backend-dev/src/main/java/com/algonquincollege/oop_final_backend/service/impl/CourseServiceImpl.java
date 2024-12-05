@@ -1,11 +1,11 @@
 package com.algonquincollege.oop_final_backend.service.impl;
 
+import java.util.List;
+
 import com.algonquincollege.oop_final_backend.dao.CourseDAO;
 import com.algonquincollege.oop_final_backend.dao.impl.CourseDAOImpl;
 import com.algonquincollege.oop_final_backend.dto.CourseDTO;
 import com.algonquincollege.oop_final_backend.service.CourseService;
-
-import java.util.List;
 
 public class CourseServiceImpl implements CourseService {
     private final CourseDAO courseDao = new CourseDAOImpl();

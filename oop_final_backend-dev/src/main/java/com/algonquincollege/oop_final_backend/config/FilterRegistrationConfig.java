@@ -1,12 +1,15 @@
 package com.algonquincollege.oop_final_backend.config;
 
+import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
+
 import com.algonquincollege.oop_final_backend.filters.JsonResponseFilter;
 import com.algonquincollege.oop_final_backend.filters.LogFilter;
 import com.algonquincollege.oop_final_backend.filters.RequestBodyToMapFilter;
 import com.algonquincollege.oop_final_backend.filters.SessionFilter;
-
-import javax.servlet.*;
-import javax.servlet.annotation.WebListener;
 
 @WebListener
 public class FilterRegistrationConfig implements ServletContextListener {

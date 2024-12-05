@@ -1,16 +1,18 @@
 package com.algonquincollege.oop_final_backend.Utils;
 
-import com.algonquincollege.oop_final_backend.Exception.UnAuthorizedException;
-import com.algonquincollege.oop_final_backend.dto.UserDTO;
-import com.algonquincollege.oop_final_backend.service.impl.AuthServiceImpl;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.Jwts;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import io.jsonwebtoken.Claims;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.algonquincollege.oop_final_backend.Exception.UnAuthorizedException;
+import com.algonquincollege.oop_final_backend.dto.UserDTO;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JwtTool {
 

@@ -1,17 +1,20 @@
 package com.algonquincollege.oop_final_backend.filters;
 
-import javax.servlet.Filter;
-
-import com.algonquincollege.oop_final_backend.servlets.FirstServlet;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 //@WebFilter(urlPatterns = "/*", filterName = "RequestBodyToMapFilter")

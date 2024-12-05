@@ -1,21 +1,22 @@
 package com.algonquincollege.oop_final_backend.servlets;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
 import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
 import com.algonquincollege.oop_final_backend.dto.UserDTO;
 import com.algonquincollege.oop_final_backend.service.AuthService;
 import com.algonquincollege.oop_final_backend.service.impl.AuthServiceImpl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
