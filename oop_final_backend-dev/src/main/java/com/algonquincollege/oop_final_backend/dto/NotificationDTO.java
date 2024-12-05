@@ -3,14 +3,15 @@ package com.algonquincollege.oop_final_backend.dto;
 import java.time.LocalDateTime;
 
 public class NotificationDTO {
-    private Integer notificationID;
-    private Integer userID;
-    private String type;
-    private String message;
-    private LocalDateTime createdAt;
-    private Boolean readStatus;
-    private LocalDateTime expiresAt;
+    private Integer notificationID;     // Unique ID for the notification
+    private Integer userID;             // ID of the user receiving the notification
+    private String type;                // Type of notification (e.g., Request Accepted, Request Rejected)
+    private String message;             // Notification message content
+    private LocalDateTime createdAt;    // Time when the notification was created
+    private Boolean readStatus;         // Whether the notification has been read
+    private LocalDateTime expiresAt;    // Expiry time of the notification, if any
 
+    // Getters and Setters
     public Integer getNotificationID() {
         return notificationID;
     }
@@ -79,5 +80,4 @@ public class NotificationDTO {
                 ", expiresAt=" + expiresAt +
                 '}';
     }
-
 }

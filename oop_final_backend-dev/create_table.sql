@@ -60,3 +60,14 @@ CREATE TABLE Notifications (
     ReadStatus BOOLEAN DEFAULT FALSE,
     ExpiresAt TIMESTAMP NULL
 );
+
+CREATE TABLE teaching_requests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_id INT NOT NULL,
+    professional_id INT NOT NULL,
+    status ENUM('Pending', 'Accepted', 'Rejected') DEFAULT 'Pending',
+    expertise TEXT,
+    request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id),
+    FOREIGN KEY (professional_id) REFERENCES users(user_id)
+);
