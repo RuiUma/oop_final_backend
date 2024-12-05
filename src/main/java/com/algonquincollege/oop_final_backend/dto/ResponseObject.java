@@ -8,26 +8,26 @@ package com.algonquincollege.oop_final_backend.dto;
  *
  * @author mzr_u
  */
-public class ResponseDTO<T> {
+public class ResponseObject<T> {
     
     private boolean success;
     private int code;
     private T data;
     private String errmsg;
     
-    public ResponseDTO(boolean success, int code, T data, String errmsg) {
+    public ResponseObject(boolean success, int code, T data, String errmsg) {
         this.success = success;
         this.code = code;
         this.data = data;
         this.errmsg = errmsg;
     }
     
-    public static <T> ResponseDTO<T> success(T data) {
-        return new ResponseDTO<>(true, 0, data, null);
+    public static <T> ResponseObject<T> success(T data) {
+        return new ResponseObject<>(true, 0, data, null);
     }
     
-    public static <T> ResponseDTO<T> failure(String errmsg) {
-        return new ResponseDTO<>(false, 1, null, errmsg);
+    public static <T> ResponseObject<T> failure(String errmsg) {
+        return new ResponseObject<>(false, 1, null, errmsg);
     }
     
     public boolean isSuccess() {

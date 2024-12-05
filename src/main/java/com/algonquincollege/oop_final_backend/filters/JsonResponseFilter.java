@@ -5,7 +5,7 @@
 package com.algonquincollege.oop_final_backend.filters;
 
 import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
+import com.algonquincollege.oop_final_backend.dto.ResponseObject;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -41,11 +41,11 @@ public class JsonResponseFilter implements Filter {
         ResponseWrapper responseWrapper = new ResponseWrapper(httpResponse); 
         chain.doFilter(request, responseWrapper);
         
-        ResponseDTO<?> responseDTO = responseWrapper.getResponseDTO();
+        ResponseObject<?> responseObject = responseWrapper.getResponseDTO();
         httpResponse.setStatus(200);
         
-        if (responseDTO != null) {
-                String json = objectMapper.writeValueAsString(responseDTO);
+        if (responseObject != null) {
+                String json = objectMapper.writeValueAsString(responseObject);
 
                 httpResponse.setContentType("application/json");
                 httpResponse.setCharacterEncoding("UTF-8");

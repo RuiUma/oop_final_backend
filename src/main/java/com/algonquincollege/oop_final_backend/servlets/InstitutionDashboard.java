@@ -1,10 +1,8 @@
 package com.algonquincollege.oop_final_backend.servlets;
 
 import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
-import com.algonquincollege.oop_final_backend.service.CourseService;
+import com.algonquincollege.oop_final_backend.dto.ResponseObject;
 import com.algonquincollege.oop_final_backend.service.InstitutionService;
-import com.algonquincollege.oop_final_backend.service.impl.CourseServiceImpl;
 import com.algonquincollege.oop_final_backend.service.impl.InstitutionServiceImpl;
 
 import javax.servlet.ServletException;
@@ -22,7 +20,7 @@ public class InstitutionDashboard extends HttpServlet {
 
         ResponseWrapper rw = (ResponseWrapper)resp;
 
-        rw.setResponseDTO(ResponseDTO.success(institutionService.getAllCourseByUserId(Integer.parseInt(req.getAttribute("userId").toString()))));
+        rw.setResponseDTO(ResponseObject.success(institutionService.getAllCourseByUserId(Integer.parseInt(req.getAttribute("userId").toString()))));
 
     }
 }

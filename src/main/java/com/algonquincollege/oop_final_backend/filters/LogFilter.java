@@ -2,7 +2,7 @@ package com.algonquincollege.oop_final_backend.filters;
 
 import com.algonquincollege.oop_final_backend.Exception.BusinessException;
 import com.algonquincollege.oop_final_backend.Exception.UnAuthorizedException;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
+import com.algonquincollege.oop_final_backend.dto.ResponseObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,8 +34,8 @@ public class LogFilter implements Filter {
                 e.printStackTrace();
             }
 
-            ResponseDTO<Object> responseDTO =  ResponseDTO.failure(e.getMessage());
-            String json = objectMapper.writeValueAsString(responseDTO);
+            ResponseObject<Object> responseObject =  ResponseObject.failure(e.getMessage());
+            String json = objectMapper.writeValueAsString(responseObject);
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.setContentType("application/json");
             httpResponse.setCharacterEncoding("UTF-8");

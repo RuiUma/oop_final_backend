@@ -1,20 +1,18 @@
 package com.algonquincollege.oop_final_backend.servlets;
 
 import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
+import com.algonquincollege.oop_final_backend.dto.ResponseObject;
 import com.algonquincollege.oop_final_backend.dto.UserDTO;
 import com.algonquincollege.oop_final_backend.service.AuthService;
 import com.algonquincollege.oop_final_backend.service.impl.AuthServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet("/login")
@@ -38,13 +36,13 @@ public class LoginServlet extends HttpServlet {
 
             resp.setHeader("Set-Cookie", "jwt=" + jwt + "; Path=/; SameSite=Strict;");
 
-            ResponseDTO<Map> responseDTO = ResponseDTO.success(map);
-            rw.setResponseDTO(responseDTO);
+            ResponseObject<Map> responseObject = ResponseObject.success(map);
+            rw.setResponseDTO(responseObject);
 
         } else {
             resp.setHeader("testheader", "testvalue");
-            ResponseDTO<Map> responseDTO = ResponseDTO.failure("login failed");
-            rw.setResponseDTO(responseDTO);
+            ResponseObject<Map> responseObject = ResponseObject.failure("login failed");
+            rw.setResponseDTO(responseObject);
         }
 
 

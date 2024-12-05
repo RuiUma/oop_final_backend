@@ -1,7 +1,7 @@
 package com.algonquincollege.oop_final_backend.servlets;
 
 import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
+import com.algonquincollege.oop_final_backend.dto.ResponseObject;
 import com.algonquincollege.oop_final_backend.service.NotificationService;
 import com.algonquincollege.oop_final_backend.service.impl.NotificationServiceImpl;
 
@@ -20,7 +20,7 @@ public class NotificationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ResponseWrapper rw = (ResponseWrapper)resp;
-        rw.setResponseDTO(ResponseDTO.success(notificationService.getNotificationsByUserId(Integer.parseInt(req.getAttribute("userId").toString()))));
+        rw.setResponseDTO(ResponseObject.success(notificationService.getNotificationsByUserId(Integer.parseInt(req.getAttribute("userId").toString()))));
     }
 
     @Override
@@ -28,7 +28,7 @@ public class NotificationServlet extends HttpServlet {
         Map parsedBody = (Map) req.getAttribute("parsedBody");
         String notificationId = parsedBody.get("notificationId").toString();
         ResponseWrapper rw = (ResponseWrapper)resp;
-        rw.setResponseDTO(ResponseDTO.success(notificationService.markAsRead(Integer.parseInt(notificationId))));
+        rw.setResponseDTO(ResponseObject.success(notificationService.markAsRead(Integer.parseInt(notificationId))));
 
     }
 }

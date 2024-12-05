@@ -3,8 +3,7 @@ package com.algonquincollege.oop_final_backend.servlets;
 import com.algonquincollege.oop_final_backend.Utils.GetUtil;
 import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
 import com.algonquincollege.oop_final_backend.dto.ApplicationDTO;
-import com.algonquincollege.oop_final_backend.dto.CourseDTO;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
+import com.algonquincollege.oop_final_backend.dto.ResponseObject;
 import com.algonquincollege.oop_final_backend.service.RequestService;
 import com.algonquincollege.oop_final_backend.service.impl.RequestServiceImpl;
 
@@ -22,7 +21,7 @@ public class RequestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ResponseWrapper rw = (ResponseWrapper)resp;
-        rw.setResponseDTO(ResponseDTO.success(requestService.getApplicationsByUserId(Integer.parseInt(req.getAttribute("userId").toString()))));
+        rw.setResponseDTO(ResponseObject.success(requestService.getApplicationsByUserId(Integer.parseInt(req.getAttribute("userId").toString()))));
     }
 
     @Override
@@ -34,7 +33,7 @@ public class RequestServlet extends HttpServlet {
         applicationDTO.setCourseID(courseId);
         applicationDTO.setProfessionalID(professionalId);
         ResponseWrapper rw = (ResponseWrapper)resp;
-        rw.setResponseDTO(ResponseDTO.success(requestService.createRequest(applicationDTO)));
+        rw.setResponseDTO(ResponseObject.success(requestService.createRequest(applicationDTO)));
 
     }
 
@@ -44,7 +43,7 @@ public class RequestServlet extends HttpServlet {
         Integer applicationId = GetUtil.getIntValue(parsedBody, "applicationId");
         String status = parsedBody.get("status").toString();
         ResponseWrapper rw = (ResponseWrapper)resp;
-        rw.setResponseDTO(ResponseDTO.success(requestService.makeDecision(applicationId, status)));
+        rw.setResponseDTO(ResponseObject.success(requestService.makeDecision(applicationId, status)));
 
     }
 }

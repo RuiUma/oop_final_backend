@@ -1,7 +1,7 @@
 package com.algonquincollege.oop_final_backend.servlets;
 
 import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
+import com.algonquincollege.oop_final_backend.dto.ResponseObject;
 import com.algonquincollege.oop_final_backend.dto.UserDTO;
 import com.algonquincollege.oop_final_backend.service.ProfileService;
 import com.algonquincollege.oop_final_backend.service.impl.ProfileServiceImpl;
@@ -49,13 +49,13 @@ public class ProfileServlet extends HttpServlet {
 
         ResponseWrapper rw = (ResponseWrapper)resp;
 
-        ResponseDTO<String> responseDTO;
+        ResponseObject<String> responseObject;
         if(res) {
-            responseDTO = ResponseDTO.success("Profile saved.");
+            responseObject = ResponseObject.success("Profile saved.");
         } else {
-            responseDTO = ResponseDTO.failure("Profile didn't saved.");
+            responseObject = ResponseObject.failure("Profile didn't saved.");
         }
-        rw.setResponseDTO(responseDTO);
+        rw.setResponseDTO(responseObject);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class ProfileServlet extends HttpServlet {
 
 
         ResponseWrapper rw = (ResponseWrapper)resp;
-        rw.setResponseDTO(ResponseDTO.success(map));
+        rw.setResponseDTO(ResponseObject.success(map));
     }
 
     private String getOrNull(Map<String, Object> map, String key) {

@@ -3,7 +3,7 @@ package com.algonquincollege.oop_final_backend.servlets;
 import com.algonquincollege.oop_final_backend.Utils.GetUtil;
 import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
 import com.algonquincollege.oop_final_backend.dto.CourseDTO;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
+import com.algonquincollege.oop_final_backend.dto.ResponseObject;
 import com.algonquincollege.oop_final_backend.service.CourseService;
 import com.algonquincollege.oop_final_backend.service.impl.CourseServiceImpl;
 
@@ -36,9 +36,9 @@ public class CourseServlet extends HttpServlet {
 
         ResponseWrapper rw = (ResponseWrapper)resp;
         if (courseService.createCourse(courseDTO)) {
-            rw.setResponseDTO(ResponseDTO.success("Successfully created course."));
+            rw.setResponseDTO(ResponseObject.success("Successfully created course."));
         } else {
-            rw.setResponseDTO(ResponseDTO.failure("Failed to create course."));
+            rw.setResponseDTO(ResponseObject.failure("Failed to create course."));
         }
 
     }
@@ -62,9 +62,9 @@ public class CourseServlet extends HttpServlet {
 
         ResponseWrapper rw = (ResponseWrapper)resp;
         if (courseService.modifyCourse(courseDTO)) {
-            rw.setResponseDTO(ResponseDTO.success("Successfully modified course."));
+            rw.setResponseDTO(ResponseObject.success("Successfully modified course."));
         } else {
-            rw.setResponseDTO(ResponseDTO.failure("Failed to modify course."));
+            rw.setResponseDTO(ResponseObject.failure("Failed to modify course."));
         }
     }
 
@@ -72,7 +72,7 @@ public class CourseServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CourseDTO courseDTO = courseService.getInstitutionCourseDetail(Integer.parseInt(req.getParameter("courseId")));
         ResponseWrapper rw = (ResponseWrapper)resp;
-        rw.setResponseDTO(ResponseDTO.success(courseDTO));
+        rw.setResponseDTO(ResponseObject.success(courseDTO));
 
     }
 

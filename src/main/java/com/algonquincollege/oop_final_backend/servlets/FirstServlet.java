@@ -8,7 +8,7 @@ package com.algonquincollege.oop_final_backend.servlets;
 import com.algonquincollege.oop_final_backend.config.ConnectionPool;
 import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
 import com.algonquincollege.oop_final_backend.dto.CourseDTO;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
+import com.algonquincollege.oop_final_backend.dto.ResponseObject;
 
 import javax.servlet.http.*;
 //import java.sql.*;
@@ -80,9 +80,9 @@ public class FirstServlet extends HttpServlet {
         map.put("total row number", rowCount);
 
 
-        ResponseDTO<Map> responseDTO = ResponseDTO.success(map);
+        ResponseObject<Map> responseObject = ResponseObject.success(map);
         ResponseWrapper rw = (ResponseWrapper)resp;
-        rw.setResponseDTO(responseDTO);
+        rw.setResponseDTO(responseObject);
         try {
             ConnectionPool.getInstance().releaseConnection(connection);
         } catch (SQLException e) {

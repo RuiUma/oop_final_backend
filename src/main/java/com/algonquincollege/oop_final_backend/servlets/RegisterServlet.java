@@ -1,7 +1,7 @@
 package com.algonquincollege.oop_final_backend.servlets;
 
 import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
+import com.algonquincollege.oop_final_backend.dto.ResponseObject;
 import com.algonquincollege.oop_final_backend.dto.UserDTO;
 import com.algonquincollege.oop_final_backend.service.AuthService;
 import com.algonquincollege.oop_final_backend.service.impl.AuthServiceImpl;
@@ -33,12 +33,12 @@ public class RegisterServlet extends HttpServlet {
         Boolean res = authService.register(userDTO);
         ResponseWrapper rw = (ResponseWrapper)resp;
 
-        ResponseDTO<String> responseDTO;
+        ResponseObject<String> responseObject;
         if(res) {
-            responseDTO = ResponseDTO.success("register success");
+            responseObject = ResponseObject.success("register success");
         } else {
-            responseDTO = ResponseDTO.failure("register failed");
+            responseObject = ResponseObject.failure("register failed");
         }
-        rw.setResponseDTO(responseDTO);
+        rw.setResponseDTO(responseObject);
     }
 }

@@ -1,7 +1,7 @@
 package com.algonquincollege.oop_final_backend.servlets;
 
 import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
+import com.algonquincollege.oop_final_backend.dto.ResponseObject;
 import com.algonquincollege.oop_final_backend.service.CourseService;
 import com.algonquincollege.oop_final_backend.service.ProfessionalService;
 import com.algonquincollege.oop_final_backend.service.impl.CourseServiceImpl;
@@ -30,7 +30,7 @@ public class CourseDetailServlet extends HttpServlet {
         map.put("applicationStatus", applicationStatus);
 
         ResponseWrapper rw = (ResponseWrapper)resp;
-        rw.setResponseDTO(ResponseDTO.success(map));
+        rw.setResponseDTO(ResponseObject.success(map));
 
     }
 }

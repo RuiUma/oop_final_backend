@@ -1,7 +1,7 @@
 package com.algonquincollege.oop_final_backend.servlets;
 
 import com.algonquincollege.oop_final_backend.config.ResponseWrapper;
-import com.algonquincollege.oop_final_backend.dto.ResponseDTO;
+import com.algonquincollege.oop_final_backend.dto.ResponseObject;
 import com.algonquincollege.oop_final_backend.service.ProfessionalService;
 import com.algonquincollege.oop_final_backend.service.impl.ProfessionalServiceImpl;
 
@@ -28,6 +28,6 @@ public class ProfessionalDashboardServlet extends HttpServlet {
         map.put("userId", req.getAttribute("userId"));
 
         ResponseWrapper rw = (ResponseWrapper)resp;
-        rw.setResponseDTO(ResponseDTO.success(professionalService.getDashBoard(map)));
+        rw.setResponseDTO(ResponseObject.success(professionalService.getDashBoard(map)));
     }
 }
